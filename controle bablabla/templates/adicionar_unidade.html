@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Unidade</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f8fafc; padding: 20px; }
+        form { max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 12px; }
+        input, button { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; }
+        button { background-color: #2563eb; color: white; font-weight: bold; cursor: pointer; }
+        a { display: block; text-align: center; margin-top: 15px; text-decoration: none; color: #2563eb; }
+    </style>
+</head>
+<body>
+    <form method="post">
+        <h2>Adicionar Nova Unidade</h2>
+        <input type="text" name="bloco" placeholder="Bloco (ex: Antares 1)" required>
+        <input type="number" name="numero" placeholder="Número da casa" required>
+        <input type="text" name="proprietario" placeholder="Nome do proprietário" required>
+        <button type="submit">Salvar Unidade</button>
+        <a href="/">← Voltar</a>
+    </form>
+</body>
+</html>

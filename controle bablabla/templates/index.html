@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Coast – Unidades Locadas</title>
+    <link href="[https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap](https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap)" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 20px;
+        }
+        .menu-button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: none; /* Escondido por padrão no desktop */
+        }
+        .sidebar {
+            background-color: #1f2937;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+        .sidebar a:hover {
+            background-color: #374151;
+        }
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .search-box input {
+            flex-grow: 1;
+            padding: 12px 16px;
+            font-size: 1.0em;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+        }
+        .resultado-container {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            max-width: 600px;
+            margin: 0 auto 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .resultado-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        .status-ok {
+            color: #10b981;
+            font-weight: bold;
+        }
+        .status-nao {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        .data-periodo {
+            font-weight: bold;
+            color: #4a5568;
+        }
+        main {
+            flex-grow: 1;
+        }
+
+        /* Media Query para Mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                flex-direction: row; /* Sidebar fica ao lado do conteúdo */
+            }
+            h1 {
+                margin-top: 0;
+                margin-bottom: 15px;
+                text-align: left;
+                font-size: 1.5em;
+                flex-basis: 100%; /* H1 ocupa a largura inteira */
+            }
+            .menu-button {
+                display: block; /* Mostra o botão no mobile */
+                order: -1; /* Coloca o botão no início */
+                margin-right: 10px;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -250px; /* Esconde a sidebar inicialmente */
+                width: 250px;
+                height: 100%;
+                z-index: 10;
+                margin-bottom: 0;
+                transition: left 0.3s ease;
+                overflow-y: auto;
+            }
+            .sidebar.open {
+                left: 0; /* Mostra a sidebar quando a classe 'open' é adicionada */
+            }
+            main {
+                padding-top: 20px;
+                flex-grow: 1;
+                padding-left: 0; /* Conteúdo principal começa da esquerda */
+                width: 100%;
+            }
+            .search-box {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="menu-button">Menu</button>
+    <aside class="sidebar">
+        <a href="/adicionar-unidade">+ Adicionar Unidade</a>
+        <a href="/adicionar-locacao">+ Registrar Locação</a>
+        <a href="/remover-locacao">- Remover Locação</a>
+        <a href="/historico-locacoes">Histórico de Locações</a>
+    </aside>
+    <main>
+        <h1>Green Coast - Unidades Locadas</h1>
+        <div class="search-box">
+            <input type="text" id="campo-busca" placeholder="Buscar por nome ou unidade...">
+        </div>
+
+        <div id="resultado">
+            {% if resultados %}
+                {% for resultado in resultados %}
+                <div class="resultado-container">
+                    <div class="resultado-item">
+                        <strong>Proprietário:</strong> <span>{{ resultado.proprietario }}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <strong>Unidade:</strong> <span>{{ resultado.unidade }} | {{ resultado.apartamento }}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <strong>Status:</strong> <span class="status-ok">✅ LOCADO</span>
+                    </div>
+                    <div class="resultado-item">
+                        <strong>Locatário:</strong> <span>{{ resultado.locatario }}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <strong>Período:</strong> <span class="data-periodo">{{ resultado.inicio_formatado }} a {{ resultado.fim_formatado }}</span>
+                    </div>
+                </div>
+                <hr style="margin: 20px auto; border: 0; border-top: 1px dashed #ccc; max-width: 600px;">
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center;">Nenhuma unidade locada encontrada.</p>
+            {% endif %}
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.querySelector('.menu-button');
+            const sidebar = document.querySelector('.sidebar');
+
+            if (menuButton && sidebar) {
+                menuButton.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

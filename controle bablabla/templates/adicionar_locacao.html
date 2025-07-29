@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Locação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f8fafc; padding: 20px; }
+        form { max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 12px; }
+        input, select, button { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #ccc; }
+        button { background-color: #2563eb; color: white; font-weight: bold; cursor: pointer; }
+        a { display: block; text-align: center; margin-top: 15px; text-decoration: none; color: #2563eb; }
+    </style>
+</head>
+<body>
+    <form method="post">
+        <h2>Registrar Locação</h2>
+        <select name="unidade" required>
+            <option value="">Escolha a unidade</option>
+            {% for u in unidades %}
+            <option value="{{ u.unidade }}">{{ u.unidade }}</option>
+            {% endfor %}
+        </select>
+        <input type="text" name="locatario" placeholder="Nome do locatário" required>
+        <input type="date" name="inicio" required>
+        <input type="date" name="fim" required>
+        <button type="submit">Salvar Locação</button>
+        <a href="/">← Voltar</a>
+    </form>
+</body>
+</html>

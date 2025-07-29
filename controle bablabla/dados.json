@@ -1,0 +1,41 @@
+[
+    {
+        "unidade": "Antares 2 | 13",
+        "apartamento": "Casa 13",
+        "proprietario": "Marcos Paulo",
+        "locado": false,
+        "historico_locacoes": [
+            {
+                "locatario": "Antigo Morador 1",
+                "inicio": "2024-01-01",
+                "fim": "2024-12-31",
+                "data_expiracao": "2025-07-29"
+            },
+            {
+                "locatario": "Antigo Morador 2",
+                "inicio": "2023-01-01",
+                "fim": "2023-12-31",
+                "data_remocao": "2024-01-01"
+            }
+        ]
+    },
+    {
+        "unidade": "Antares 2 | 14",
+        "apartamento": "Casa 14",
+        "proprietario": "João Silva",
+        "locado": true,
+        "locatario": "josue",
+        "inicio": "2025-07-19",
+        "fim": "2025-07-29"
+    },
+    {
+        "unidade": "Vega 2 | 10",
+        "apartamento": "Casa 10",
+        "proprietario": "Pedro Rola",
+        "locado": true,
+        "locatario": "josue",
+        "inicio": "2025-03-12",
+        "fim": "2025-09-12",
+        "historico_locacoes": []
+    }
+]

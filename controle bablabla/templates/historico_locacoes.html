@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Green Coast – Histórico de Locações</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8fafc;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .menu a {
+            padding: 10px 20px;
+            background-color: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .historico-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .historico-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        .historico-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .historico-item strong {
+            color: #1f2937;
+        }
+        .historico-item span {
+            color: #4a5568;
+        }
+        .data-periodo {
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .no-data {
+            text-align: center;
+            color: #6b7280;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Green Coast - Histórico de Locações</h1>
+    <div class="menu">
+        <a href="/">Voltar para Unidades Locadas</a>
+    </div>
+
+    <div class="historico-container">
+        {% if historico %}
+            {% for item in historico %}
+            <div class="historico-item">
+                <p><strong>Unidade:</strong> <span>{{ item.unidade }} | {{ item.apartamento }}</span></p>
+                <p><strong>Proprietário:</strong> <span>{{ item.proprietario }}</span></p>
+                <p><strong>Locatário:</strong> <span>{{ item.locatario }}</span></p>
+                <p><strong>Período:</strong> <span class="data-periodo">{{ item.inicio }} a {{ item.fim }}</span></p>
+                <p><strong>Evento:</strong> <span>Locação finalizada em {{ item.data_evento }}</span></p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-data">Nenhum registro de locação no histórico.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
